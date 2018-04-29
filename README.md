@@ -1,17 +1,14 @@
 # Pong
 ## A HTML Canvas/JS Game
-#### Game One
-#### Author: Jakob Strobl
-
 ### Version: 1.0
-
-### Features:
+#### Features:
 * Completed
 	* Random ball color
 	* Random ball velocity
 	* Ball/Paddle Collision
 	* Basic Bot 
 	* Scores 
+
 * Todo:
 	* Backspin
 	* Ball trail
@@ -23,10 +20,9 @@
 	* Improved Score Board
 	* Sound?
 
-
+#### Author: Jakob Strobl
 ### Background
-⋅⋅⋅This is the **first** game for a personal summer challenge of making one webgame per about each week. 
-⋅⋅⋅Pong is the first game I am making. 
+	This is the **first** game for a personal summer challenge where I will make one webgame per each week.
 
 ## Acknowledgements
 * Martin Ankerl -- [How to Generate Random Colors Programmatically](https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/)
