@@ -1,4 +1,5 @@
 // Basic Ball Constructor
+// Values for velocity and acceleration are all culculated by pixels/second.
 function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 	this.diameter = diameter,
 
@@ -7,25 +8,28 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 
 	this.xVelocity = xVel,
 	this.yVelocity = yVel,
+
 	this.color = color,
 
+	// Move the ball with an acceleration object {x:~, y:~} and a delta Time value
+	// Accelaration is pixels/second, deltaT = # of second(s)
+	// Using time for calculations, means ball movement/position is independent of frame rate.
+	this.move = function(a, deltaT) {
+		//Calculate new velocity based off of time and acceleration
+		this.xVelocity = this.xVelocity + (a.x * deltaT);
+		this.yVelocity = this.yVelocity + (a.y * deltaT);
+
+		this.xPos += this.xVelocity * deltaT;
+		this.yPos += this.yVelocity * deltaT;
+	}
+
 	this.invertX = function() {
-		ball.xVelocity = ball.xVelocity * -1;
+		this.xVelocity = this.xVelocity * -1;
 	},
 
 	this.invertY = function() {
-		ball.yVelocity = ball.yVelocity * -1;
+		this.yVelocity = this.yVelocity * -1;
 	},
-
-	this.collisionBox = function() {
-		//Returns left, top, right, bot positional values to determine where is collision box is.
-		return {
-			left: this.xPos - this.diameter/2,
-			right: this.xPos + this.diameter/2,
-			top: this.yPos - diameter/2,
-			bot: this.yPos + diameter/2
-		};
-	}
 
 	this.getRandomVelocity = function(xRange, xMin, yRange, yMin) {
 		this.xVelocity = Math.floor(Math.random() * xRange + xMin);
@@ -45,5 +49,15 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 
 	this.getRandomColor = function() {
 		this.color = golden_ratio_hex(0.4, 0.95);
+	}
+
+	this.collisionBox = function() {
+		//Returns left, top, right, bot positional values to determine where is collision box is.
+		return {
+			left: this.xPos - this.diameter/2,
+			right: this.xPos + this.diameter/2,
+			top: this.yPos - diameter/2,
+			bot: this.yPos + diameter/2
+		};
 	}
 }

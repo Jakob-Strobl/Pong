@@ -19,8 +19,15 @@ var ball;
 var player; 
 var botPaddle;
 
+var accModifier = { 
+	x: 0,
+	y: 0
+};
+
 var playerScore; 
 var botScore;
+
+var lastMoveTime = Date.now();
 
 /* ********************************
  *  		Initialize Game
@@ -55,9 +62,6 @@ function run() {
 				var mousePos = getMousePos(evt);
 				player.setY(mousePos.y);
 			});
-
-	//Set interval to update game objects
-	updateInterval = setInterval(updateObjects, 1000/gameFPS);
 	
 	//Request animation frame for animation Loop
 	requestID = requestAnimationFrame(updateAnimation);
@@ -95,8 +99,12 @@ function updateObjects() {
 function moveBall() {
 
 	//Update positions
-	ball.xPos += ball.xVelocity;
-	ball.yPos += ball.yVelocity;
+	//Get the current time so we can calculate the deltaTime for ball.move()
+	var curMoveTime = Date.now();
+
+	ball.move(accModifier, (curMoveTime - lastMoveTime)/1000); //Divide by 1000 to conver time to seconds.
+
+	lastMoveTime = curMoveTime; //Swap oldTime with newTime
 
 	// Check if ball hit an edge
 	if (ball.yPos <= 0  + ball.diameter/2) {
@@ -129,16 +137,6 @@ function moveBall() {
 function newBall() {
 	var temp = new Ball(canvas.width/2, canvas.height/2, ballDiameter);
 	ball = temp;
-	ball.getRandomVelocity(5,5,5,5);
+	ball.getRandomVelocity(100,400,300,50);
 	ball.getRandomColor();
-}
-
-function computeBotMove() {
-	var botCenter = botPaddle.getY();
-	if(botCenter < ball.yPos) {
-		botPaddle.yPos += 4;
-	}
-	else if (botCenter > ball.yPos) {
-		botPaddle.yPos -= 4;
-	}
 }
