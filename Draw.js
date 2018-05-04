@@ -31,10 +31,10 @@ function drawCanvas() {
 	drawCircle(ball.xPos, ball.yPos, ball.diameter, ball.color);
 
 	//Draw left paddle (Left => Player)
-	drawRect(player.xPos, player.yPos, player.width, player.height, player.color);
+	drawPaddle(player.draw());
 
 	//Draw right paddle (right => bot)
-	drawRect(botPaddle.xPos, botPaddle.yPos, botPaddle.width, botPaddle.height, botPaddle.color);
+	drawPaddle(botPaddle.draw());
 }
 
 function drawCircle(centerX, centerY, diameter, color) {
@@ -42,6 +42,11 @@ function drawCircle(centerX, centerY, diameter, color) {
 	canvasContext.beginPath();
 	canvasContext.arc(centerX, centerY, diameter/2, 0, Math.PI*2, true);
 	canvasContext.fill();
+}
+
+function drawPaddle(paddle) {
+	canvasContext.fillStyle = paddle.color;
+	canvasContext.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
 }
 
 function drawRect(leftX, topY, width, height, color) {
@@ -53,5 +58,4 @@ function renderText(message, xPos, yPos, size, font) {
 	canvasContext.fillStyle = "white";
 	canvasContext.font = size + "px " + font;
 	canvasContext.fillText(message, xPos, yPos);
-
 }

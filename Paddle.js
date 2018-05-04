@@ -34,8 +34,21 @@ function Paddle(xPos, yPos, width, height, color) {
 	//Collision
 	this.collides = function(ball) {
 		if (this.inside(ball.collisionBox())) {
-			console.log("Collides");
 			return true;
 		}
+	}
+
+	this.draw = function() {
+		return {
+			x: this.xPos,
+			y: this.yPos,
+			width: this.width,
+			height: this.height,
+			color: this.color
+		};
+	}
+
+	this.pop = function() {
+
 	}
 }

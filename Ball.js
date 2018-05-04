@@ -48,7 +48,7 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 	}
 
 	this.getRandomColor = function() {
-		this.color = golden_ratio_hex(0.4, 0.95);
+		this.color = golden_ratio_hex(0.5, 0.95);
 	}
 
 	this.collisionBox = function() {

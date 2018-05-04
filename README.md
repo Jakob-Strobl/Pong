@@ -21,11 +21,13 @@
 	* Sound?
 
 ## Background
-This is the **first** game for a personal summer challenge where I will make one webgame per week.
+This is the **first** game for a personal summer challenge where I will make one game per week.
 
 ### Time Frame
 **Game One**
+
 **Start:** April 27th
+
 **Finish:** May 4th *(Anticipated)*
 
 ## Acknowledgements
