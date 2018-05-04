@@ -27,7 +27,9 @@ var accModifier = {
 var playerScore; 
 var botScore;
 
-var lastMoveTime = Date.now();
+var lastTick = Date.now();//Divide by 1000 to conver time to seconds.
+var curTick;
+var animTick;
 
 /* ********************************
  *  		Initialize Game
@@ -45,8 +47,8 @@ window.onload = function() {
 	//Construct Objects
 	newBall();
 	
-	player = new Paddle(0, canvas.height/2, 10, 100, "white");
-	botPaddle = new Paddle(canvas.width-10, canvas.height/2, 10, 100, "white");
+	player = new Paddle(0, canvas.height/2, 10, 100, "#FFFFFF");
+	botPaddle = new Paddle(canvas.width-10, canvas.height/2, 10, 100, "#FFFFFF");
 	playerScore = 0;
 	botScore = 0;
 
@@ -91,20 +93,19 @@ function getMousePos(evt) {
  */
 
 function updateObjects() {
+	curTick = Date.now(); // Get new time for all update functions
+	//Divide by 1000 to conver time to seconds.
 	moveBall();
 	computeBotMove();
-	console.log("Objects Updated");
+	
+	lastTick = curTick; // Set previous time with the current time for next updateObjects call.
 }
 
 function moveBall() {
 
 	//Update positions
 	//Get the current time so we can calculate the deltaTime for ball.move()
-	var curMoveTime = Date.now();
-
-	ball.move(accModifier, (curMoveTime - lastMoveTime)/1000); //Divide by 1000 to conver time to seconds.
-
-	lastMoveTime = curMoveTime; //Swap oldTime with newTime
+	ball.move(accModifier, (curTick - lastTick)/1000);
 
 	// Check if ball hit an edge
 	if (ball.yPos <= 0  + ball.diameter/2) {
@@ -117,9 +118,11 @@ function moveBall() {
 	} 
 	else if (player.collides(ball)) {
 		ball.invertX();
+		animTick = curTick;
 	}
 	else if (botPaddle.collides(ball)) {
 		ball.invertX();
+		animTick = curTick;
 	}
 
 	//Check for scoring

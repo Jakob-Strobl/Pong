@@ -31,10 +31,10 @@ function drawCanvas() {
 	drawCircle(ball.xPos, ball.yPos, ball.diameter, ball.color);
 
 	//Draw left paddle (Left => Player)
-	drawPaddle(player.draw());
+	drawPaddle(player.draw(animTick, curTick, ball.color));
 
 	//Draw right paddle (right => bot)
-	drawPaddle(botPaddle.draw());
+	drawPaddle(botPaddle.draw(animTick, curTick, ball.color));
 }
 
 function drawCircle(centerX, centerY, diameter, color) {

@@ -52,6 +52,19 @@ function hsv_to_rgb(h, s, v) {
 	}
 }
 
+function hex_to_rgb(hex) {
+	return {
+		r: parseInt(hex.substring(1,3),16),
+		g: parseInt(hex.substring(3,5),16),
+		b: parseInt(hex.substring(5,7),16)
+	};
+}
+
+function rgb_to_hex(rgb) {
+	var hex = "#" + rgb.r.toString(16).toUpperCase() + rgb.g.toString(16).toUpperCase() + rgb.b.toString(16).toUpperCase();
+	return hex;
+}
+
 //Generate a random hsv
 function rand_hsv() {
 	return Math.random();
@@ -76,4 +89,15 @@ function golden_ratio_hex(s, v) {
 	var rgb = golden_ratio_rgb(s, v);
 	var hex = "#" + rgb.r.toString(16).toUpperCase() + rgb.g.toString(16).toUpperCase() + rgb.b.toString(16).toUpperCase();
 	return hex;
+}
+
+function shift_to_color(curRGB, destRGB, shift) {
+	curRGB.r = Math.ceil((destRGB.r - curRGB.r) * shift) + curRGB.r;
+	
+	//console.log("r: " +  destRGB.g + " - " + curRGB.g);
+	curRGB.g = Math.ceil((destRGB.g - curRGB.g) * shift) + curRGB.g;
+
+	curRGB.b = Math.ceil((destRGB.b - curRGB.b) * shift) + curRGB.b;
+
+	return curRGB;
 }
