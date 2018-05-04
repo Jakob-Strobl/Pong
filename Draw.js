@@ -34,7 +34,7 @@ function drawCanvas() {
 	drawPaddle(player.draw(animTick, curTick, ball.color));
 
 	//Draw right paddle (right => bot)
-	drawPaddle(botPaddle.draw(animTick, curTick, ball.color));
+	drawPaddleFlipped(botPaddle.draw(animTick, curTick, ball.color));
 }
 
 function drawCircle(centerX, centerY, diameter, color) {
@@ -47,6 +47,14 @@ function drawCircle(centerX, centerY, diameter, color) {
 function drawPaddle(paddle) {
 	canvasContext.fillStyle = paddle.color;
 	canvasContext.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+}
+
+function drawPaddleFlipped(paddle) {
+	canvasContext.save();
+	canvasContext.scale(-1,1);
+	canvasContext.fillStyle = paddle.color;
+	canvasContext.fillRect(-paddle.x, paddle.y, paddle.width, paddle.height);
+	canvasContext.restore();
 }
 
 function drawRect(leftX, topY, width, height, color) {

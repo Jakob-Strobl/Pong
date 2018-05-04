@@ -48,7 +48,7 @@ window.onload = function() {
 	newBall();
 	
 	player = new Paddle(0, canvas.height/2, 10, 100, "#FFFFFF");
-	botPaddle = new Paddle(canvas.width-10, canvas.height/2, 10, 100, "#FFFFFF");
+	botPaddle = new Paddle(canvas.width, canvas.height/2, 10, 100, "#FFFFFF");
 	playerScore = 0;
 	botScore = 0;
 
