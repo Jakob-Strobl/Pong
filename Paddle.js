@@ -2,38 +2,64 @@ function Paddle(xPos, yPos, width, height, color) {
 	this.xPos = xPos;
 	this.yPos = yPos;
 	
-	this.height = height;
-	this.baseHeight = height;
 	this.width = width;
-	this.baseWidth = width;
+	this.height = height;
 	
-	//Hex values
+	this.speed = 0;
+	
+	//Hex value
 	this.color = color;
-	this.baseColor = color;
 	
 	// base____ variables store the original values the paddle was instantiated with.
+	this.baseWidth = width;
+	this.baseHeight = height;
+	this.baseColor = color; //Hex
 	
 
-	//Center yPos
+	// Everytime we set Y, we can also calculate the speed. 
+	// You should call setY() to set the speed.
+	// If the system can't render at the speed of the monitor, there might be miscaluclations of the speed.
 	this.setY = function(y) {
+		this.speed = Math.abs(this.yPos - y);
 		this.yPos = y;
 	};
-
+	
+	// Returned a centered Y position
 	this.getY = function() {
-		return this.yPos - this.height/2;
+		return this.yPos - this.getDynamicHeight()/2;
 	};
-
+	
+	// Return a width based off of the speed of the paddle.
+	// Desmos.com for graph: y = width/(1 + x * 0.01);
+	this.getDynamicWidth = function() {
+		var w = this.width / (1 + this.speed *  0.01);
+		return w;
+	}
+	
+	// Return a height based off of the speed of the paddle.
+	// Desmos.com for graph: y = (height/(1 + x * 0.01))  + 2 * height;
+	this.getDynamicHeight = function() {
+		var h = -(this.height / (1 + this.speed * 0.01)) + 2 * this.height;
+		return h;
+	}
+	
+	// Check if part of a collisionBox is inside of the paddle.
 	this.inside = function(box) {
-		if (box.left >= this.xPos 
-			&& box.left <= this.xPos + this.width
-			&& box.bot >= this.getY()
-			&& box.top <= this.getY()+ this.height) {
+		// Might provide minor improvements since getY() is only called once.
+		var paddleX = this.xPos;
+		var paddleY = this.getY();
+		
+		if (box.left >= paddleX
+			&& box.left <= paddleX + this.width
+			&& box.bot >= paddleY
+			&& box.top <= paddleY + this.height) {
 			return true;
 		}
-		if (box.right >= this.xPos
-			&& box.right <= this.xPos + this.width
-			&& box.bot >= this.getY()
-			&& box.top <= this.getY() + this.height) {
+		// paddleX - this.width accounts for the flipped x-axis for the bot paddle.
+		if (box.right >= paddleX - this.width
+			&& box.right <= paddleX
+			&& box.bot >= paddleY
+			&& box.top <= paddleY + this.height) {
 			return true;
 		}
 
@@ -44,25 +70,31 @@ function Paddle(xPos, yPos, width, height, color) {
 	this.collides = function(ball) {
 		if (this.inside(ball.collisionBox())) {
 			this.draw = this.drawPaddleBounce; //Swap draw function with pop animation
-			console.log("switch");
 			return true;
 		}
 	};
 	
 	// Return parameters to draw figures
 	this.drawPaddle = function() {
+		var w = this.getDynamicWidth();
+		var h = this.getDynamicHeight();
+		
+		// EDGE CASE: 
+		//		Set speed back to zero, in case the user stops moving the mouse abrubtly. 
+		this.speed = 0;
+		
 		return {
 			x: this.xPos,
 			y: this.getY(),
-			width: this.width,
-			height: this.height,
+			width: w,
+			height: h,
 			color: this.color
 		};
 	};
 	
 	// Make a "pop" animation when the ball hits the paddle.
-	// Assume that times are in seconds
-	// Animation lasts ~0.2 seconds.
+	// Assume that times are in milliseconds
+	// Animation lasts ~0.5 seconds.
  	this.drawPaddleBounce = function(startTime, curTime, ballColor) {
 		
 		// Initially change the color to the ball
@@ -81,10 +113,11 @@ function Paddle(xPos, yPos, width, height, color) {
 			this.shiftSize(this.baseWidth, this.baseHeight, 0.55, 0.15);
 		}
 		else {
-			//Make sure values go back to original state
+			//Make sure values go back to original state at the end.
 			this.color = this.baseColor;	
 			this.width = this.baseWidth;
 			this.height = this.baseHeight;
+			
 			//Reassign draw() back to normal drawPaddle()
 			this.draw = this.drawPaddle;
 		}
