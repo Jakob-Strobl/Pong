@@ -8,13 +8,12 @@
 	* Ball/Paddle Collision
 	* Basic Bot 
 	* Scores 
+	* Paddle move animation
+	* Paddle hit animation
 
 * Todo:
 	* Backspin
 	* Ball trail
-	* Split the ball
-	* Paddle move animation
-	* Paddle hit animation
 	* Explosive bounce
 	* Improved Bot Paddle
 	* Improved Score Board

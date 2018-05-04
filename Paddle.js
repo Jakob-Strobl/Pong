@@ -49,17 +49,21 @@ function Paddle(xPos, yPos, width, height, color) {
 		var paddleX = this.xPos;
 		var paddleY = this.getY();
 		
+		// Get the dynamic height for the bounds of the paddle's ht box
+		var paddleHeight = this.getDynamicHeight();
+		var paddleWidth = this.getDynamicWidth();
+		
 		if (box.left >= paddleX
-			&& box.left <= paddleX + this.width
+			&& box.left <= paddleX + paddleWidth
 			&& box.bot >= paddleY
-			&& box.top <= paddleY + this.height) {
+			&& box.top <= paddleY + paddleHeight) {
 			return true;
 		}
 		// paddleX - this.width accounts for the flipped x-axis for the bot paddle.
-		if (box.right >= paddleX - this.width
+		if (box.right >= paddleX - paddleWidth
 			&& box.right <= paddleX
 			&& box.bot >= paddleY
-			&& box.top <= paddleY + this.height) {
+			&& box.top <= paddleY + paddleHeight) {
 			return true;
 		}
 
