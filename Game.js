@@ -111,17 +111,37 @@ function moveBall() {
 	if (ball.yPos <= 0  + ball.diameter/2) {
 		// Ball passed top edge
 		ball.invertY();
+		
+		// Flip y acceleration modifier after coliding with the walls.
+		//accModifier.x = 0;
+		accModifier.y = -accModifier.y;
 	}
 	else if (ball.yPos >= canvas.height - ball.diameter/2) {
 		// Ball passed bottom edge
 		ball.invertY();
+
+		// Flip y acceleration modifier after coliding with the walls.
+		//accModifier.x = 0;
+		accModifier.y = -accModifier.y;
 	} 
 	else if (player.collides(ball)) {
+		//check for curve bounce
+		//Normal bounce
 		ball.invertX();
+		
+		if (Math.abs(player.speed) > 20) {
+			accModifier.y = ball.yVelocity/player.speed * (Math.abs(player.speed));
+		}
+		
 		animTick = curTick;
 	}
 	else if (botPaddle.collides(ball)) {
 		ball.invertX();
+		
+		if (Math.abs(botPaddle.speed) > 20) {
+			accModifier.y = ball.yVelocity/botPaddle.speed * (Math.abs(botPaddle.speed));
+		}
+		
 		animTick = curTick;
 	}
 
@@ -140,6 +160,10 @@ function moveBall() {
 function newBall() {
 	var temp = new Ball(canvas.width/2, canvas.height/2, ballDiameter);
 	ball = temp;
-	ball.getRandomVelocity(100,400,300,50);
+	ball.getRandomVelocity(100,600,400,50);
 	ball.getRandomColor();
+
+	// Reset acceleration modifier after creating a new ball
+	accModifier.x = 0;
+	accModifier.y = 0;
 }

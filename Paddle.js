@@ -20,7 +20,8 @@ function Paddle(xPos, yPos, width, height, color) {
 	// You should call setY() to set the speed.
 	// If the system can't render at the speed of the monitor, there might be miscaluclations of the speed.
 	this.setY = function(y) {
-		this.speed = Math.abs(this.yPos - y);
+		this.speed = this.yPos - y;
+		//console.log(this.speed);
 		this.yPos = y;
 	};
 	
@@ -32,14 +33,14 @@ function Paddle(xPos, yPos, width, height, color) {
 	// Return a width based off of the speed of the paddle.
 	// Desmos.com for graph: y = width/(1 + x * 0.01);
 	this.getDynamicWidth = function() {
-		var w = this.width / (1 + this.speed *  0.01);
+		var w = this.width / (1 + Math.abs(this.speed) *  0.01);
 		return w;
 	}
 	
 	// Return a height based off of the speed of the paddle.
 	// Desmos.com for graph: y = (height/(1 + x * 0.01))  + 2 * height;
 	this.getDynamicHeight = function() {
-		var h = -(this.height / (1 + this.speed * 0.01)) + 2 * this.height;
+		var h = -(this.height / (1 + Math.abs(this.speed) * 0.01)) + 2 * this.height;
 		return h;
 	}
 	
@@ -131,10 +132,8 @@ function Paddle(xPos, yPos, width, height, color) {
 	};
 	
 	this.shiftSize = function(w, h, rateW, rateH) {
-		console.log(this.width);
 		this.width = Math.round((w - this.width) * rateW + this.width);
 		this.height = Math.floor((h - this.height) * rateH + this.height);
-		console.log("After" + this.width);
 	}
 	
 	// Wrapper draw function that by default draw the Paddle
