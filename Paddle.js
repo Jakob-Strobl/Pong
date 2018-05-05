@@ -54,15 +54,15 @@ function Paddle(xPos, yPos, width, height, color) {
 		var paddleHeight = this.getDynamicHeight();
 		var paddleWidth = this.getDynamicWidth();
 		
-		if (box.left >= paddleX
+		if (box.left >= paddleX - paddleWidth * 2
 			&& box.left <= paddleX + paddleWidth
 			&& box.bot >= paddleY
 			&& box.top <= paddleY + paddleHeight) {
 			return true;
 		}
 		// paddleX - this.width accounts for the flipped x-axis for the bot paddle.
-		if (box.right >= paddleX - paddleWidth
-			&& box.right <= paddleX
+		if (box.right >= paddleX - paddleWidth * 2
+			&& box.right <= paddleX + paddleWidth
 			&& box.bot >= paddleY
 			&& box.top <= paddleY + paddleHeight) {
 			return true;
@@ -72,8 +72,8 @@ function Paddle(xPos, yPos, width, height, color) {
 	};
 
 	// Check if the ball collides with paddle.
-	this.collides = function(ball) {
-		if (this.inside(ball.collisionBox())) {
+	this.collides = function(ballHB) {
+		if (this.inside(ballHB)) {
 			this.draw = this.drawPaddleBounce; //Swap draw function with pop animation
 			return true;
 		}

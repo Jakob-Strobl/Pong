@@ -54,11 +54,13 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 
 	this.collisionBox = function() {
 		//Returns left, top, right, bot positional values to determine where is collision box is.
+		
+		//Use base diameter so animation doesnt cause infinite expansion
 		return {
-			left: this.xPos - this.diameter/2,
-			right: this.xPos + this.diameter/2,
-			top: this.yPos - this.diameter/2,
-			bot: this.yPos + this.diameter/2
+			left: this.xPos - this.baseDiameter/2,
+			right: this.xPos + this.baseDiameter/2,
+			top: this.yPos - this.baseDiameter/2,
+			bot: this.yPos + this.baseDiameter/2
 		};
 	}
 	
@@ -82,6 +84,8 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		}
 		else {
 			this.diameter = this.baseDiameter;
+			
+			//Switch back to standard draw
 			this.draw = this.drawBall;
 		}
 		

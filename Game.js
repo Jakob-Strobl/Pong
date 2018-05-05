@@ -103,13 +103,14 @@ function updateObjects() {
 }
 
 function moveBall() {
-
 	//Update positions
 	//Get the current time so we can calculate the deltaTime for ball.move()
 	ball.move(accModifier, (curTick - lastTick)/1000);
+		
+	var ballHitBox = ball.collisionBox();
 
 	// Check if ball hit an edge
-	if (ball.yPos <= 0  + ball.diameter/2) {
+	if (ballHitBox.top <= 0) {
 		// Ball passed top edge
 		ball.invertY();
 		
@@ -117,23 +118,27 @@ function moveBall() {
 		//accModifier.x = 0;
 		accModifier.y = 0;
 		ballAnimTick = curTick;
+		
+		// Start the ball animation draw function
 		ball.draw = ball.drawBallBounce;
 	}
-	else if (ball.yPos >= canvas.height - ball.diameter/2) {
+	else if (ballHitBox.bot >= canvas.height) {
 		// Ball passed bottom edge
 		ball.invertY();
 
 		// Zero y acceleration modifier after coliding with the walls.
 		//accModifier.x = 0;
 		accModifier.y = 0;
+		
+		// Timing for animation
 		ballAnimTick = curTick;
 		
-		//Start the ball animation draw function
+		// Start the ball animation draw function
 		ball.draw = ball.drawBallBounce;
 	} 
-	else if (player.collides(ball)) {
-		//check for curve bounce
-		//Normal bounce
+	else if (player.collides(ballHitBox)) {
+		// check for curve bounce
+		// Normal bounce
 		ball.invertX();
 		
 		// If paddle speed > 20, curve shot
@@ -144,10 +149,10 @@ function moveBall() {
 		animTick = curTick;
 		ballAnimTick = curTick;
 		
-		//Start the ball animation draw function
+		// Start the ball animation draw function
 		ball.draw = ball.drawBallBounce;
 	}
-	else if (botPaddle.collides(ball)) {
+	else if (botPaddle.collides(ballHitBox)) {
 		ball.invertX();
 		
 		if (Math.abs(botPaddle.speed) > 20) {
@@ -157,11 +162,11 @@ function moveBall() {
 		animTick = curTick;
 		ballAnimTick = curTick;
 		
-		//Start the ball animation draw function
+		// Start the ball animation draw function
 		ball.draw = ball.drawBallBounce;
 	}
 
-	//Check for scoring
+	// Check for scoring
 	if (ball.xPos <= 0 - ball.diameter) {
 		botScore++;
 		newBall();
