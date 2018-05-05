@@ -16,6 +16,7 @@ var gameFPS = 60;
 //Ball Object
 const ballDiameter = 30;
 var ball;
+var oldBallColor;
 var player; 
 var botPaddle;
 
@@ -31,6 +32,9 @@ var lastTick = Date.now();//Divide by 1000 to conver time to seconds.
 var curTick;
 var animTick;
 var ballAnimTick;
+
+//Particles 
+var p;
 
 /* ********************************
  *  		Initialize Game
@@ -52,6 +56,9 @@ window.onload = function() {
 	botPaddle = new Paddle(canvas.width, canvas.height/2, 10, 100, "#FFFFFF");
 	playerScore = 0;
 	botScore = 0;
+	
+	p = new Particles(10);
+	p.create(107, 90, ball.color, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
 
 	drawCanvas(); // Draw canvas ASAP before settingAnimationFrame
 	run(); 	//Start game
@@ -98,6 +105,9 @@ function updateObjects() {
 	//Divide by 1000 to conver time to seconds.
 	moveBall();
 	computeBotMove();
+	
+	//Particles 
+	p.update();
 	
 	lastTick = curTick; // Set previous time with the current time for next updateObjects call.
 }
@@ -175,12 +185,17 @@ function moveBall() {
 	}
 
 	// Check for scoring
+	// Bot Scores
 	if (ball.xPos <= (0 - (ball.diameter * 2))) {
 		botScore++;
+		oldBallColor = ball.color;
+		p.create(canvas.width-93, 90, oldBallColor, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
 		newBall();
-	}
+	}// Player Scores
 	else if (ball.xPos >= (canvas.width + (ball.diameter * 2))) {
 		playerScore++;
+		oldBallColor = ball.color;
+		p.create(107, 90, oldBallColor, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
 		newBall();
 	}
 

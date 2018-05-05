@@ -60,8 +60,13 @@ function hex_to_rgb(hex) {
 	};
 }
 
+function partToHex(c) {
+	var hex = c.toString(16).toUpperCase();
+	return hex.length == 1 ? "0" + hex : hex;
+}
+
 function rgb_to_hex(rgb) {
-	var hex = "#" + rgb.r.toString(16).toUpperCase() + rgb.g.toString(16).toUpperCase() + rgb.b.toString(16).toUpperCase();
+	var hex = "#" + partToHex(rgb.r) + partToHex(rgb.g) + partToHex(rgb.b);
 	return hex;
 }
 
@@ -93,11 +98,26 @@ function golden_ratio_hex(s, v) {
 
 function shift_to_color(curRGB, destRGB, shift) {
 	curRGB.r = Math.ceil((destRGB.r - curRGB.r) * shift) + curRGB.r;
-	
+
 	//console.log("r: " +  destRGB.g + " - " + curRGB.g);
 	curRGB.g = Math.ceil((destRGB.g - curRGB.g) * shift) + curRGB.g;
 
 	curRGB.b = Math.ceil((destRGB.b - curRGB.b) * shift) + curRGB.b;
+
+	return curRGB;
+}
+
+function shift_to_black(curRGB, shift) {
+	var black = 0;
+	curRGB.r = Math.ceil((black - curRGB.r) * shift) + curRGB.r - 1;
+	curRGB.r = curRGB.r < 0 ? 0 : curRGB.r;
+
+	//console.log("r: " +  destRGB.g + " - " + curRGB.g);
+	curRGB.g = Math.ceil((black - curRGB.g) * shift) + curRGB.g - 1;
+	curRGB.g = curRGB.g < 0 ? 0 : curRGB.g;
+
+	curRGB.b = Math.ceil((black - curRGB.b) * shift) + curRGB.b - 1;
+	curRGB.b = curRGB.b < 0 ? 0 : curRGB.b;
 
 	return curRGB;
 }

@@ -1,16 +1,16 @@
 // Basic Ball Constructor
 // Values for velocity and acceleration are all culculated by pixels/second.
 function Ball(xPos, yPos, diameter, xVel, yVel, color) {
-	this.diameter = diameter,
+	this.diameter = diameter;
 	this.baseDiameter = diameter;
 
-	this.xPos = xPos,
-	this.yPos = yPos,
+	this.xPos = xPos;
+	this.yPos = yPos;
 
-	this.xVelocity = xVel,
-	this.yVelocity = yVel,
+	this.xVelocity = xVel;
+	this.yVelocity = yVel;
 
-	this.color = color,
+	this.color = color;
 
 	// Move the ball with an acceleration object {x:~, y:~} and a delta Time value
 	// Accelaration is pixels/second, deltaT = # of second(s)
@@ -22,15 +22,15 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 
 		this.xPos += this.xVelocity * deltaT;
 		this.yPos += this.yVelocity * deltaT;
-	}
+	};
 
 	this.invertX = function() {
 		this.xVelocity = this.xVelocity * -1;
-	},
+	};
 
 	this.invertY = function() {
 		this.yVelocity = this.yVelocity * -1;
-	},
+	};
 
 	this.getRandomVelocity = function(xRange, xMin, yRange, yMin) {
 		this.xVelocity = Math.floor(Math.random() * xRange + xMin);
@@ -46,11 +46,11 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		if (Math.random() > 0.5) {
 			this.yVelocity *= -1;
 		} // Else - Do nothing
-	}
+	};
 
 	this.getRandomColor = function() {
 		this.color = golden_ratio_hex(0.5, 0.95);
-	}
+	};
 
 	this.collisionBox = function() {
 		//Returns left, top, right, bot positional values to determine where is collision box is.
@@ -62,7 +62,7 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 			top: this.yPos - this.baseDiameter/2,
 			bot: this.yPos + this.baseDiameter/2
 		};
-	}
+	};
 	
 	this.drawBall = function() {
 		return {
@@ -70,8 +70,8 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 			y: this.yPos,
 			diameter: this.diameter,
 			color: this.color
-		}
-	}
+		};
+	};
 	
 	this.drawBallBounce = function(startTime, curTime) {
 		var deltaTime = curTime - startTime;
@@ -90,11 +90,11 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		}
 		
 		return this.drawBall();
-	}
+	};
 	
 	this.draw = this.drawBall;
 	
 	this.shiftDiameter = function(targetDiameter, rate) {
 		return Math.floor((targetDiameter - this.diameter) * rate + this.diameter);
-	}
+	};
 }

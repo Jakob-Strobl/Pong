@@ -21,6 +21,9 @@ function drawCanvas() {
 	
 	//Draw canvas
 	drawRect(0, 0, canvas.width, canvas.height, "black");
+	
+	//Particles
+	p.draw(canvasContext);
 
 	//Draw Scores
 	//Firefox was showing a high cost of usage.
@@ -35,6 +38,7 @@ function drawCanvas() {
 
 	//Draw right paddle (right => bot)
 	drawPaddleFlipped(botPaddle.draw(animTick, curTick, ball.color));
+	
 }
 
 function drawBall(ball) {
