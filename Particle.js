@@ -4,12 +4,12 @@
  
 function Particles(number) {
 	this.numParticles = number;
-	this.particles;
+	this.particles = 0;
 	
-	this.create = function(xPos, yPos, color, diameter, xCalc, yCalc) {
+	this.create = function(xPos, yPos, color, diameter, xVel, yVel) {
 		this.particles = [];
 		for (var i = 0; i < this.numParticles; i++) {
-			this.particles.push(new Particle(xPos, yPos, color, diameter, xCalc, yCalc));
+			this.particles.push(new Particle(xPos, yPos, color, diameter, xVel, yVel));
 		}
 	}
 	
@@ -41,14 +41,14 @@ function Particles(number) {
 	}
 }
 
-function Particle(xPos, yPos, color, diameter, xVelCalc, yVelCalc) {
+function Particle(xPos, yPos, color, diameter, xVel, yVel) {
 	this.xPos = xPos;
 	this.yPos = yPos;
 	this.diameter = Math.random() * diameter;
 	this.color = color;
 	
-	this.xVelocity = (Math.random() * 10)-5;
-	this.yVelocity = -(Math.random() * 10 + 2);
+	this.xVelocity = (Math.random() * xVel)-xVel/2;
+	this.yVelocity = ((Math.random() * yVel) - (yVel/8));
 	
 	this.yAcc = 0.5;
 	
@@ -64,7 +64,6 @@ function Particle(xPos, yPos, color, diameter, xVelCalc, yVelCalc) {
 		var particleRGB = hex_to_rgb(this.color);
 		var targetRGB = hex_to_rgb("#000000");
 		this.color = rgb_to_hex(shift_to_black(particleRGB, 0.05));
-		console.log(this.color);
 	}
 	
 	this.draw = function(context) {

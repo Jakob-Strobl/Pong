@@ -11,6 +11,8 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 	this.yVelocity = yVel;
 
 	this.color = color;
+	
+	this.particles = new Particles(10);
 
 	// Move the ball with an acceleration object {x:~, y:~} and a delta Time value
 	// Accelaration is pixels/second, deltaT = # of second(s)
@@ -73,21 +75,25 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		};
 	};
 	
-	this.drawBallBounce = function(startTime, curTime) {
+	this.drawBallBounce = function(startTime, curTime, context) {
 		var deltaTime = curTime - startTime;
 		
 		if (deltaTime < 100) {
-			this.diameter = this.shiftDiameter(this.diameter*1.25, 0.2);
+			this.diameter = this.shiftDiameter(this.baseDiameter*1.25, 0.5);
 		}
 		else if (deltaTime < 300) {
 			this.diameter = this.shiftDiameter(this.baseDiameter, 0.02);
 		}
-		else {
+		else if (this.particles.particles == 0) {
 			this.diameter = this.baseDiameter;
 			
 			//Switch back to standard draw
 			this.draw = this.drawBall;
 		}
+		
+		//Add particle effects on bounce
+		this.particles.update();
+		this.particles.draw(context);
 		
 		return this.drawBall();
 	};
@@ -97,4 +103,8 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 	this.shiftDiameter = function(targetDiameter, rate) {
 		return Math.floor((targetDiameter - this.diameter) * rate + this.diameter);
 	};
+	
+	this.createParticles = function() {
+		this.particles.create(this.xPos, this.yPos, this.color, 5, this.diameter, -20);
+	}
 }

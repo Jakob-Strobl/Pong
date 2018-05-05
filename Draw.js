@@ -31,7 +31,7 @@ function drawCanvas() {
 	renderText(botScore, canvas.width-100, 100, 32, "sans-serif");
 
 	//Draw ball
-	drawBall(ball.draw(ballAnimTick, curTick));
+	drawBall(ball.draw(ballAnimTick, curTick, canvasContext));
 
 	//Draw left paddle (Left => Player)
 	drawPaddle(player.draw(animTick, curTick, ball.color));

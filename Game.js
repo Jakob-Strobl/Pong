@@ -57,8 +57,7 @@ window.onload = function() {
 	playerScore = 0;
 	botScore = 0;
 	
-	p = new Particles(10);
-	p.create(107, 90, ball.color, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
+	p = new Particles(15);
 
 	drawCanvas(); // Draw canvas ASAP before settingAnimationFrame
 	run(); 	//Start game
@@ -133,6 +132,7 @@ function moveBall() {
 		ballAnimTick = curTick;
 		
 		// Start the ball animation draw function
+		ball.createParticles();
 		ball.draw = ball.drawBallBounce;
 	}
 	else if (ballHitBox.bot >= canvas.height) {
@@ -150,6 +150,7 @@ function moveBall() {
 		ballAnimTick = curTick;
 		
 		// Start the ball animation draw function
+		ball.createParticles();
 		ball.draw = ball.drawBallBounce;
 	} 
 	else if (player.collides(ballHitBox)) {
@@ -167,6 +168,7 @@ function moveBall() {
 		ballAnimTick = curTick;
 		
 		// Start the ball animation draw function
+		ball.createParticles();
 		ball.draw = ball.drawBallBounce;
 	}
 	else if (botPaddle.collides(ballHitBox)) {
@@ -181,6 +183,7 @@ function moveBall() {
 		ballAnimTick = curTick;
 		
 		// Start the ball animation draw function
+		ball.createParticles();
 		ball.draw = ball.drawBallBounce;
 	}
 
@@ -189,13 +192,13 @@ function moveBall() {
 	if (ball.xPos <= (0 - (ball.diameter * 2))) {
 		botScore++;
 		oldBallColor = ball.color;
-		p.create(canvas.width-93, 90, oldBallColor, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
+		p.create(canvas.width-93, 90, oldBallColor, 5, 7, -15);
 		newBall();
 	}// Player Scores
 	else if (ball.xPos >= (canvas.width + (ball.diameter * 2))) {
 		playerScore++;
 		oldBallColor = ball.color;
-		p.create(107, 90, oldBallColor, 5, (Math.random() * 10)-5, (Math.random() * 10)-5);
+		p.create(107, 90, oldBallColor, 5, 7, -15);
 		newBall();
 	}
 
