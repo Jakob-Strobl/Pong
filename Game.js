@@ -114,6 +114,9 @@ function moveBall() {
 		// Ball passed top edge
 		ball.invertY();
 		
+		//EDGE CASE: Make sure the ball doesn't double bounce on wall.
+		ball.yPos += 2;
+		
 		// Zero y acceleration modifier after coliding with the walls.
 		//accModifier.x = 0;
 		accModifier.y = 0;
@@ -125,7 +128,10 @@ function moveBall() {
 	else if (ballHitBox.bot >= canvas.height) {
 		// Ball passed bottom edge
 		ball.invertY();
-
+		
+		//EDGE CASE: Make sure the ball doesn't double bounce on wall.
+		ball.yPos -= 2;
+		
 		// Zero y acceleration modifier after coliding with the walls.
 		//accModifier.x = 0;
 		accModifier.y = 0;
@@ -140,6 +146,7 @@ function moveBall() {
 		// check for curve bounce
 		// Normal bounce
 		ball.invertX();
+		ball.xPos += 2;
 		
 		// If paddle speed > 20, curve shot
 		if (Math.abs(player.speed) > 20) {
@@ -154,6 +161,7 @@ function moveBall() {
 	}
 	else if (botPaddle.collides(ballHitBox)) {
 		ball.invertX();
+		ball.xPos -= 2;
 		
 		if (Math.abs(botPaddle.speed) > 20) {
 			accModifier.y = ball.yVelocity/botPaddle.speed * (Math.abs(botPaddle.speed));
@@ -167,11 +175,11 @@ function moveBall() {
 	}
 
 	// Check for scoring
-	if (ball.xPos <= 0 - ball.diameter) {
+	if (ball.xPos <= (0 - (ball.diameter * 2))) {
 		botScore++;
 		newBall();
 	}
-	else if (ball.xPos >= canvas.width + ball.diameter) {
+	else if (ball.xPos >= (canvas.width + (ball.diameter * 2))) {
 		playerScore++;
 		newBall();
 	}

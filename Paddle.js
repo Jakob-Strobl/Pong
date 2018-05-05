@@ -61,8 +61,8 @@ function Paddle(xPos, yPos, width, height, color) {
 			return true;
 		}
 		// paddleX - this.width accounts for the flipped x-axis for the bot paddle.
-		if (box.right >= paddleX - paddleWidth * 2
-			&& box.right <= paddleX + paddleWidth
+		if (box.right >= paddleX - paddleWidth
+			&& box.right <= paddleX + paddleWidth * 2
 			&& box.bot >= paddleY
 			&& box.top <= paddleY + paddleHeight) {
 			return true;
