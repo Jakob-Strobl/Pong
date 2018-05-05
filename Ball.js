@@ -2,6 +2,7 @@
 // Values for velocity and acceleration are all culculated by pixels/second.
 function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 	this.diameter = diameter,
+	this.baseDiameter = diameter;
 
 	this.xPos = xPos,
 	this.yPos = yPos,
@@ -56,8 +57,40 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		return {
 			left: this.xPos - this.diameter/2,
 			right: this.xPos + this.diameter/2,
-			top: this.yPos - diameter/2,
-			bot: this.yPos + diameter/2
+			top: this.yPos - this.diameter/2,
+			bot: this.yPos + this.diameter/2
 		};
+	}
+	
+	this.drawBall = function() {
+		return {
+			x: this.xPos,
+			y: this.yPos,
+			diameter: this.diameter,
+			color: this.color
+		}
+	}
+	
+	this.drawBallBounce = function(startTime, curTime) {
+		var deltaTime = curTime - startTime;
+		
+		if (deltaTime < 100) {
+			this.diameter = this.shiftDiameter(this.diameter*1.25, 0.2);
+		}
+		else if (deltaTime < 300) {
+			this.diameter = this.shiftDiameter(this.baseDiameter, 0.02);
+		}
+		else {
+			this.diameter = this.baseDiameter;
+			this.draw = this.drawBall;
+		}
+		
+		return this.drawBall();
+	}
+	
+	this.draw = this.drawBall;
+	
+	this.shiftDiameter = function(targetDiameter, rate) {
+		return Math.floor((targetDiameter - this.diameter) * rate + this.diameter);
 	}
 }

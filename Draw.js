@@ -28,13 +28,17 @@ function drawCanvas() {
 	renderText(botScore, canvas.width-100, 100, 32, "sans-serif");
 
 	//Draw ball
-	drawCircle(ball.xPos, ball.yPos, ball.diameter, ball.color);
+	drawBall(ball.draw(ballAnimTick, curTick));
 
 	//Draw left paddle (Left => Player)
 	drawPaddle(player.draw(animTick, curTick, ball.color));
 
 	//Draw right paddle (right => bot)
 	drawPaddleFlipped(botPaddle.draw(animTick, curTick, ball.color));
+}
+
+function drawBall(ball) {
+	drawCircle(ball.x, ball.y, ball.diameter, ball.color);
 }
 
 function drawCircle(centerX, centerY, diameter, color) {
