@@ -39,6 +39,8 @@ var p;
 //Pop up messages
 var playerPopUp;
 var botPopUp;
+var playerScoreText;
+var botScoreText;
 
 /* ********************************
  *  		Initialize Game
@@ -58,14 +60,14 @@ window.onload = function() {
 	
 	player = new Paddle(0, canvas.height/2, 10, 100, "#FFFFFF");
 	botPaddle = new Paddle(canvas.width, canvas.height/2, 10, 100, "#FFFFFF");
-	playerScore = 0;
-	botScore = 0;
 	
 	p = new Particles(15);
 	
-	playerPopUp = new TimedPopupText(new PopupText("CURVE BALL!", 175, 200, 48, "white", "sans-serif"));
-	botPopUp = new TimedPopupText(new PopupText("CURVE BALL!", canvas.width-175, 200, 48, "white", "sans-serif"));
-
+	playerPopUp = new TimedPopupText(new PopupText("CURVE BALL!", 200, 175, 48, "white", "sans-serif"));
+	botPopUp = new TimedPopupText(new PopupText("CURVE BALL!", canvas.width-200, 175, 48, "white", "sans-serif"));
+	playerScoreText = new ScoreText(0, 100, 100, 32, "white", "sans-serif");
+	botScoreText = new ScoreText(0, canvas.width-100, 100, 32, "white", "sans-serif");
+	
 	drawCanvas(); // Draw canvas ASAP before settingAnimationFrame
 	run(); 	//Start game
 }
@@ -199,18 +201,51 @@ function moveBall() {
 	// Check for scoring
 	// Bot Scores
 	if (ball.xPos <= (0 - (ball.diameter * 2))) {
-		botScore++;
+		updateScoreBoard(false);
 		oldBallColor = ball.color;
 		p.create(canvas.width-93, 90, oldBallColor, 5, 7, -15);
 		newBall();
 	}// Player Scores
 	else if (ball.xPos >= (canvas.width + (ball.diameter * 2))) {
-		playerScore++;
+		updateScoreBoard(true);
 		oldBallColor = ball.color;
 		p.create(107, 90, oldBallColor, 5, 7, -15);
 		newBall();
 	}
 
+}
+
+function updateScoreBoard(playerScored) {
+	if (playerScored == false) {
+		botScoreText.incScore();
+		
+		if (botScoreText.score == playerScoreText.score) {
+			playerScoreText.initShrink();
+			botScoreText.initBounce(false);
+		}
+		else if (botScoreText.score > playerScoreText.score) {
+			botScoreText.initGrow();
+			botScoreText.initBounce(true);
+		}
+		else {
+			botScoreText.initBounce(false);
+		}
+	} 
+	else {
+		playerScoreText.incScore();
+		//Player has bigger number if their score is greater
+		if (playerScoreText.score == botScoreText.score) {
+			botScoreText.initShrink();
+			playerScoreText.initBounce(false);
+		}
+		else if (playerScoreText.score > botScoreText.score) {
+			playerScoreText.initGrow();
+			playerScoreText.initBounce(true);
+		}
+		else {
+			playerScoreText.initBounce(false);
+		}
+	}
 }
 
 function newBall() {

@@ -28,11 +28,10 @@ function drawCanvas() {
 	//Popup messages
 	playerPopUp.renderTimedMessage(canvasContext, 2000);
 	botPopUp.renderTimedMessage(canvasContext, 2000);
-
+	
 	//Draw Scores
-	//Firefox was showing a high cost of usage.
-	renderText(playerScore, 100, 100, 32, "sans-serif");
-	renderText(botScore, canvas.width-100, 100, 32, "sans-serif");
+	playerScoreText.renderBounceableText(canvasContext, 0.3);
+	botScoreText.renderBounceableText(canvasContext, 0.3);
 
 	//Draw ball
 	drawBall(ball.draw(ballAnimTick, curTick, canvasContext));

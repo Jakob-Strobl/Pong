@@ -1,5 +1,5 @@
 # Pong
-## Revamp of the class game Pong with HTML Canvas/JS by Jakob Strobl
+## Revamp of the class game Pong with HTML Canvas/JS
 ## Version: 1.0
 ### Features:
 * Completed
