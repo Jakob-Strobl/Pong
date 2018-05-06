@@ -117,6 +117,7 @@ function ScoreText(score, xPos, yPos, baseSize, color, font) {
 			this.curSize = this.baseSize;
 		}
 		else {
+			//If the score is in the lead, use the lead size.
 			this.curSize = this.leadSize;
 		}
 		
@@ -124,11 +125,9 @@ function ScoreText(score, xPos, yPos, baseSize, color, font) {
 	}
 	
 	this.initGrow = function() {
-		if (this.minSize != this.leadSize) {
-			this.curSize = this.baseSize;
-			this.maxSize = this.leadSize * 1.5;
-			this.minSize = this.leadSize;
-		}
+		this.curSize = this.baseSize;
+		this.maxSize = this.leadSize * 1.5;
+		this.minSize = this.leadSize;
 	}
 	
 	this.initShrink = function() {

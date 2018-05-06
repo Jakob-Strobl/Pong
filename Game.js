@@ -220,11 +220,15 @@ function updateScoreBoard(playerScored) {
 		botScoreText.incScore();
 		
 		if (botScoreText.score == playerScoreText.score) {
+			//Shrink player score now that the scores are tied.
 			playerScoreText.initShrink();
 			botScoreText.initBounce(false);
 		}
 		else if (botScoreText.score > playerScoreText.score) {
-			botScoreText.initGrow();
+			if (botScoreText.score - playerScoreText.score == 1) {
+				botScoreText.initGrow(); //Make bot score larger if the player becomes in the lead.
+			}
+			
 			botScoreText.initBounce(true);
 		}
 		else {
@@ -235,11 +239,15 @@ function updateScoreBoard(playerScored) {
 		playerScoreText.incScore();
 		//Player has bigger number if their score is greater
 		if (playerScoreText.score == botScoreText.score) {
+			//Shrink bot score now that the scores are tied.
 			botScoreText.initShrink();
 			playerScoreText.initBounce(false);
 		}
 		else if (playerScoreText.score > botScoreText.score) {
-			playerScoreText.initGrow();
+			if (playerScoreText.score - botScoreText.score == 1) {
+				playerScoreText.initGrow(); //Make player score larger if the player becomes in the lead.
+			}
+			//Player bounce using values of them being in the lead.
 			playerScoreText.initBounce(true);
 		}
 		else {

@@ -11,11 +11,10 @@
 	* Paddle move animation
 	* Paddle hit animation
 	* Backspin
+	* Improved Score Board
 
 * Todo:
-	* Ball trail
 	* Improved Bot Paddle
-	* Improved Score Board
 
 ## Background
 This is the **first** game for a personal summer challenge where I will make one game per week.
