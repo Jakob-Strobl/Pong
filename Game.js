@@ -36,6 +36,10 @@ var ballAnimTick;
 //Particles 
 var p;
 
+//Pop up messages
+var playerPopUp;
+var botPopUp;
+
 /* ********************************
  *  		Initialize Game
  * ********************************
@@ -58,6 +62,9 @@ window.onload = function() {
 	botScore = 0;
 	
 	p = new Particles(15);
+	
+	playerPopUp = new TimedPopupText(new PopupText("CURVE BALL!", 175, 200, 48, "white", "sans-serif"));
+	botPopUp = new TimedPopupText(new PopupText("CURVE BALL!", canvas.width-175, 200, 48, "white", "sans-serif"));
 
 	drawCanvas(); // Draw canvas ASAP before settingAnimationFrame
 	run(); 	//Start game
@@ -162,6 +169,7 @@ function moveBall() {
 		// If paddle speed > 20, curve shot
 		if (Math.abs(player.speed) > 20) {
 			accModifier.y = ball.yVelocity/player.speed * (Math.abs(player.speed));
+			playerPopUp.init();
 		}
 		
 		animTick = curTick;
@@ -177,6 +185,7 @@ function moveBall() {
 		
 		if (Math.abs(botPaddle.speed) > 20) {
 			accModifier.y = ball.yVelocity/botPaddle.speed * (Math.abs(botPaddle.speed));
+			botPopUp.init();
 		}
 		
 		animTick = curTick;

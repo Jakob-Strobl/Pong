@@ -24,6 +24,10 @@ function drawCanvas() {
 	
 	//Particles
 	p.draw(canvasContext);
+	
+	//Popup messages
+	playerPopUp.renderTimedMessage(canvasContext, 2000);
+	botPopUp.renderTimedMessage(canvasContext, 2000);
 
 	//Draw Scores
 	//Firefox was showing a high cost of usage.
