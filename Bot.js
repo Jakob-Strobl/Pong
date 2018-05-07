@@ -55,7 +55,7 @@ function botMove() {
 		distance = 0;
 	}
 	
-	move = Math.round((distance/(ballSpeed+2)) * distance);
+	move = Math.round((distance/(ballSpeed/10+2)) * distance);
 	if (move > 75)
 		move = 75;
 	else if (move < -75)

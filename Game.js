@@ -138,7 +138,14 @@ function moveBall() {
 		
 		// Zero y acceleration modifier after coliding with the walls.
 		//accModifier.x = 0;
-		accModifier.y = 0;
+		if (Math.random() < 0.35) {
+			accModifier.y = Math.round(-accModifier.y*0.5);
+			accModifier.x = Math.round(-accModifier.y*0.1);
+		}
+		else {
+			accModifier.y = Math.round(accModifier.y*0.75);
+		}
+		
 		ballAnimTick = curTick;
 		
 		// Start the ball animation draw function
@@ -154,7 +161,15 @@ function moveBall() {
 		
 		// Zero y acceleration modifier after coliding with the walls.
 		//accModifier.x = 0;
-		accModifier.y = 0;
+		if (Math.random() < 0.35) {
+			accModifier.y = Math.round(-accModifier.y*0.5);
+			accModifier.x = Math.round(accModifier.y*0.1);
+		}
+		else {
+			accModifier.y = Math.round(accModifier.y*0.75);
+		}
+		
+		console.log(accModifier.y )
 		
 		// Timing for animation
 		ballAnimTick = curTick;
