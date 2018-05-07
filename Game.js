@@ -19,6 +19,7 @@ var ball;
 var oldBallColor;
 var player; 
 var botPaddle;
+var attemptCurveBall = 0;
 
 var accModifier = { 
 	x: 0,
@@ -110,9 +111,9 @@ function getMousePos(evt) {
 
 function updateObjects() {
 	curTick = Date.now(); // Get new time for all update functions
-	//Divide by 1000 to conver time to seconds.
-	moveBall();
+	
 	computeBotMove();
+	moveBall();
 	
 	//Particles 
 	p.update();
@@ -190,6 +191,9 @@ function moveBall() {
 			botPopUp.init();
 		}
 		
+		attemptCurveBall = 0;
+		console.log("True speed" + botPaddle.speed);
+		
 		animTick = curTick;
 		ballAnimTick = curTick;
 		
@@ -265,4 +269,6 @@ function newBall() {
 	// Reset acceleration modifier after creating a new ball
 	accModifier.x = 0;
 	accModifier.y = 0;
+	
+	attemptCurveBall = 0;
 }

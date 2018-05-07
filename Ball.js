@@ -79,7 +79,7 @@ function Ball(xPos, yPos, diameter, xVel, yVel, color) {
 		var deltaTime = curTime - startTime;
 		
 		if (deltaTime < 100) {
-			this.diameter = this.shiftDiameter(this.baseDiameter*1.25, 0.5);
+			this.diameter = this.shiftDiameter(this.baseDiameter*1.3, 0.6);
 		}
 		else if (deltaTime < 300) {
 			this.diameter = this.shiftDiameter(this.baseDiameter, 0.02);
