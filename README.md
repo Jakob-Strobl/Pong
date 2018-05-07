@@ -1,6 +1,6 @@
 # Pong
 ## Revamp of the class game Pong with HTML Canvas/JS
-## Version: 1.0
+## Version: 1.0 FINISHED
 ### Features:
 * Completed
 	* Random ball color
@@ -12,8 +12,6 @@
 	* Paddle hit animation
 	* Backspin
 	* Improved Score Board
-
-* Todo:
 	* Improved Bot Paddle
 
 ## Background
@@ -24,7 +22,7 @@ This is the **first** game for a personal summer challenge where I will make one
 
 **Start:** April 27th
 
-**Finish:** May 4th *(Anticipated)*
+**Finish:** May 7th *(Actual)* [May 4th *(Anticipated)*]
 
 ## Acknowledgements
 * Martin Ankerl -- [How to Generate Random Colors Programmatically](https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/)
