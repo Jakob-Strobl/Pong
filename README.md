@@ -14,16 +14,6 @@
 	* Improved Score Board
 	* Improved Bot Paddle
 
-## Background
-This is the **first** game for a personal summer challenge where I will make one game per week.
-
-### Time Frame
-**Game One**
-
-**Start:** April 27th
-
-**Finish:** May 7th *(Actual)* [May 4th *(Anticipated)*]
-
 ## Acknowledgements
 * Martin Ankerl -- [How to Generate Random Colors Programmatically](https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/)
 	* Use: Random color generation for game objects (e.g. the ball) 
